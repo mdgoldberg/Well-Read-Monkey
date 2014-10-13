@@ -3,8 +3,53 @@ Author: Matt Goldberg
 
 Usage: java Monkey filename numLookback numToPrint
 
-This is a fun little project I built in high school computer science. The way
-it works is it first scans the input file, building up a series of nested
-HashMaps that essentially act as a probability distribution for the next letter
-in the alphabet, given the previous `numLookback` letters. Then, it prints out
-`numToPrint` characters, 
+Note: when numToPrint is negative, the program will print infinitely until
+terminated.
+
+This is a fun little project I built in high school computer science.
+
+The motivation is the Infinite Monkey Theorem, which, according to Wikipedia,
+states that "a monkey hitting keys at random on a typewriter keyboard for an
+infinite amount of time will almost surely type a given text".
+Now, replace "at random" with "based on the sequence of characters in the text
+that will eventually be typed" and you essentially have this project. What gave
+me the idea for this project was thinking about how we could possibly train the
+monkey to produce the given text more quickly than if its presses were
+strictly, uniformly random. Of course, the first thing that came to mind is to
+teach the monkey to read! If it can read the text before typing into the
+typewriter, then it is much more likely to generate sequences of letters that
+appear in the text. This line of thinking gave rise to this program, which
+simulates said well-read monkey.
+
+The way it works is it first scans the input txt file, building up a series of
+nested HashMaps that essentially act as a probability distribution for the next
+letter in the alphabet, given the previous `numLookback` letters. Then, it
+prints out `numToPrint` characters, where the first `numLookback` letters are
+determined by the beginning of the book (which, let's say, particularly
+resonated with the Monkey), and the remainder of the characters are determined
+randomly by the distribution of subsequent characters given the previous
+`numLookBack` characters. If the previous `numLookBack` characters had never
+appeared sequentially in the text, the program reverts to another HashMap,
+which keeps track of the overall distribution of characters in the text
+(without conditioning on previous letters).
+
+**Observations on Results**
+
+The results of running this program, while not perfect English, are quite
+interesting; the result is made up of mostly English words, and classic phrases
+from texts are often formed; for example, when running F. Scott Fitzgerald's
+The Great Gatsby through the program, the phrases "old sport" and "Doctor T. J.
+Eckleburg" appear relatively often.
+
+As expected, I found that the greater the lookback, the more accurate and
+logical the output is; when lookback is only 1 or 2, few full English words are
+formed, but as the lookback increases, more and more coherent words and English
+constructs are formed. When lookback reaches around 10-12 or more, full phrases
+from the text are directly generated.
+
+One expansion on this idea that could be done quite easily would be to, instead
+of looking back at the previous `n` characters, looking back at the previous
+`n` words; this would guarantee that the output would, at the least, be
+composed of words, which surely would be quite interesting; however, it would
+also make punctuation much more challenging. If I ever come back to this
+project, I will likely create this expansion.

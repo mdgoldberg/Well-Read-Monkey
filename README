@@ -1,0 +1,10 @@
+Well-Read Monkey on a Typewriter
+Author: Matt Goldberg
+
+Usage: java Monkey filename numLookback numToPrint
+
+This is a fun little project I built in high school computer science. The way
+it works is it first scans the input file, building up a series of nested
+HashMaps that essentially act as a probability distribution for the next letter
+in the alphabet, given the previous `numLookback` letters. Then, it prints out
+`numToPrint` characters, 
